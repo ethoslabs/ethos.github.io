@@ -1,0 +1,472 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "3.0.0",
+    "title": "EthOS Rest Api",
+    "description": "EthOS Rest Api requires a API Key.",
+    "termsOfService": "https://ethosapp.com/info/terms-and-conditions",
+    "contact": {
+      "name": "Jayakarthikeyan G",
+      "email": "jay@ethosapp.com"
+    },
+    "license": {
+      "name": "EthOS Labs"
+    }
+  },
+  "host": "23.22.30.64",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/v3/users/login": {
+      "put": {
+        "summary": "User Authentication",
+        "description": "Sign in a user.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "title": "Auth details",
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "token": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Your are unauthorized to access this resource."
+          }
+        }
+      }
+    },
+    "/v3/projects": {
+      "get": {
+        "summary": "Get all projects associated with the user",
+        "description": "All projects a user is associated",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "title": "List of Projects",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties":{
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "client":{
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Your are unauthorized to access this resource."
+          }
+        }
+      }
+    },
+    "/v3/projects/{id}": {
+      "get": {
+        "summary": "Get list of entries in a project",
+        "description": "Get list of entries in a project uploaded by the current user.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "_action",
+            "description": "defines the action associated with the api route",
+            "in": "header",
+            "type": "string",
+            "default": "entries",
+            "required": "true"
+          },
+          {
+            "name": "id",
+            "description": "Project id",
+            "in": "path",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "title": "List of entries",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "user_id": {
+                    "type": "string"
+                  },
+                  "owner": {
+                    "type": "string"
+                  },
+                  "role_id":{
+                    "type": "string"
+                  },
+                  "name":{
+                    "type": "string"
+                  },
+                  "description":{
+                    "type": "string"
+                  },
+                  "client":{
+                    "type": "string"
+                  },
+                  "is_social":{
+                    "type": "string"
+                  },
+                  "tags":{
+                    "type": "object"
+                  },
+                  "tasks":{
+                    "type": "object"
+                  },
+                  "respondents":{
+                    "respondents": "object"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Your are unauthorized to access this resource."
+          }
+        }
+      }
+    },
+    "/v3/entries": {
+      "post": {
+        "summary": "Post a entry",
+        "description": "Post a entry into a project",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "project_id": {
+                  "type": "string"
+                },
+                "task_id": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "location": {
+                  "type": "string"
+                },
+                "tags": {
+                  "type": "string"
+                },
+                "uid":{
+                  "type": "string"
+                },
+                "orig_date":{
+                  "type": "string"
+                },
+                "type":{
+                  "type": "string"
+                },
+                "file_id":{
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "title": "Saved Entry details",
+              "type": "object",
+              "properties":{
+                "id": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "location": {
+                  "type": "string"
+                },
+                "orignal_created_at":{
+                  "type": "string"
+                },
+                "media_url":{
+                  "type": "string"
+                },
+                "file_width":{
+                  "type": "string"
+                },
+                "file_height":{
+                  "type": "string"
+                },
+                "preview_url":{
+                  "type": "string"
+                },
+                "mp4_url":{
+                  "type": "string"
+                },
+                "webm_url":{
+                  "type": "string"
+                },
+                "file_is_video":{
+                  "type": "string"
+                },
+                "type":{
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Your are unauthorized to access this resource."
+          }
+        }
+      }
+    },
+    "/v3/entries/{id}":{
+      "put": {
+        "summary": "Change the state of an entry",
+        "description": "When a new entry is created for any media, the state will not be in open state. After completing the upload, we need to call a put request manaully to change the state.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [          
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": "true",
+            "description": "Entry id whose state need to be changed." 
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "state": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "title": "Saved Entry details",
+              "type": "object",
+              "properties":{
+                "id": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "location": {
+                  "type": "string"
+                },
+                "orignal_created_at":{
+                  "type": "string"
+                },
+                "media_url":{
+                  "type": "string"
+                },
+                "file_width":{
+                  "type": "string"
+                },
+                "file_height":{
+                  "type": "string"
+                },
+                "preview_url":{
+                  "type": "string"
+                },
+                "mp4_url":{
+                  "type": "string"
+                },
+                "webm_url":{
+                  "type": "string"
+                },
+                "file_is_video":{
+                  "type": "string"
+                },
+                "type":{
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Your are unauthorized to access this resource."
+          }
+        }
+      }
+    },
+    "/v3/entries/{id}/media-transcode":{
+      "put": {
+        "summary": "Media Transcode",
+        "description": "Schedule a media transacode. <b>In the url, 'media-transcode' is not needed. But you need to have _action header.</b>",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "_action",
+            "in": "header",
+            "type": "string",
+            "default": "media-transcode"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": "true",
+            "description": "Entry id whose state need to be changed." 
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "state": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "title": "Saved Entry details",
+              "type": "object",
+              "properties":{
+                "handler": {
+                  "type": "string"
+                },
+                "environment": {
+                  "type": "string"
+                },
+                "fileId": {
+                  "type": "string"
+                },
+                "bucket":{
+                  "type": "string"
+                },
+                "filename":{
+                  "type": "string"
+                },
+                "extension":{
+                  "type": "string"
+                },
+                "contentType":{
+                  "type": "string"
+                },
+                "is_public":{
+                  "type": "string"
+                },
+                "type":{
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Your are unauthorized to access this resource."
+          }
+        }
+      }
+    }
+  }
+}
